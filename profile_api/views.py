@@ -11,6 +11,7 @@ from rest_framework import filters
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 
 class HelloApiView(APIView):
@@ -114,7 +115,7 @@ class UserProfileFeedViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     serializer_class = ProfileFeedItemSerializer
     queryset = ProfileFeedItem.objects.all()
-    permission_classes = [permmisions.PostOwnStatus, IsAuthenticatedOrReadOnly]
+    permission_classes = [permmisions.PostOwnStatus, IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user_profile=self.request.user)
